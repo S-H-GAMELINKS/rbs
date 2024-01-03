@@ -605,6 +605,8 @@ module RBS
             else
               BuiltinNames::Symbol.instance_type
             end
+          when Integer
+            Types::Literal.new(literal: lit, location: nil)
           else
             type_name = TypeName.new(name: lit.class.name.to_sym, namespace: Namespace.root)
             Types::ClassInstance.new(name: type_name, args: [], location: nil)
@@ -708,6 +710,10 @@ module RBS
           case node.children[0]
           when Symbol
             BuiltinNames::Symbol.instance_type
+          when Integer
+            BuiltinNames::Integer.instance_type
+          when Float
+            BuiltinNames::Float.instance_type
           else
             default
           end
